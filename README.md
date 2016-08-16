@@ -1,4 +1,4 @@
-# categories_txt
+# nodeJS post Filtering
 nodejs service for filtering social app
 nodeJS servise with jayson rpc 2.0 for filtering posts of anar social network app in naive bayse alghorithm run: in dir folder run: npm install
 
