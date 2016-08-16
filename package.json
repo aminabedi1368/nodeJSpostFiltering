@@ -1,12 +1,14 @@
 {
-    "name": "bayes"
+    "name": "naiveBayesService"
   , "description": "service post gategories for social app in node.js"
-  , "version": "0.0."
+  , "version": "1.0.0"
   , "author": "amin abedi"
   , "keywords": [ "naive", "bayes", "categorize", "classify", "classifier" ]
   , "dependencies": {
-	"jayson" : "2.0.2"
-
+	"jayson" : "2.0.2" ,
+	"basic-auth-connect" : "1.0.0" ,
+	"connect" : "3.4.1" ,
+	"body-parser" : "1.15.2" 
     }
   , "devDependencies": {
       "mocha": ">=0.8.1"
@@ -15,7 +17,7 @@
   , "main": "./lib/naive_bayes"
   , "repository": {
         "type": "git"
-      , "url": "http://github.com/ttezel/bayes.git"
+      , "url": "http://github.com/aminabedi1369/nodeJSpostFiltering.git"
     }
   , "scripts": {
       "test": "mocha -t 30000 -R spec"

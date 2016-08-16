@@ -1,5 +1,14 @@
 var jayson = require('jayson');
 var post;
+var http = require('http');
+var connect = require('connect');
+var jsonParser = require('body-parser').json;
+var app = connect();
+// Authentication module.
+var basicAuth = require('basic-auth-connect');
+
+
+
 var server = jayson.server({
   post: function(args, callback) {
 	  post=args[0]
@@ -10,9 +19,14 @@ var server = jayson.server({
   }
 });
 
-server.http().listen(3000, function() {
-  console.log('Server listening on http://localhost:3000');
-});
+// parse request body before the jayson middleware
+app.use(jsonParser());
+app.use(basicAuth(function(user, pass){
+  return 'payam' == user && 'payam' == pass;
+}))
+app.use(server.middleware());
+app.listen(3000);
+
 
 
 function shuffle(a) {
