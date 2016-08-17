@@ -9,7 +9,7 @@ in node terminal cd dir of project
 
 run: npm install
 
-it runs in localhost:3000 and can be have response in any rest client with this format: 
+it runs in localhost:3000 and responses in any rest client with a standard format as below: 
 Host: localhost:3000
 Content-Type: application/json
 Authorization: Basic cGF5YW06cGF5YW0=
