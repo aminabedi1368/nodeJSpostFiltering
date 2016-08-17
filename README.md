@@ -9,7 +9,8 @@ in node terminal cd dir of project
 
 run: npm install
 
-it runs in localhost:3000 and responses in any rest client with a standard format as below: 
+it runs in localhost:3000 and responses in any rest client with a standard format as below:
+
 Host: localhost:3000
 Content-Type: application/json
 Authorization: Basic cGF5YW06cGF5YW0=
@@ -18,5 +19,7 @@ Authorization: Basic cGF5YW06cGF5YW0=
 Authorization system is basic Auth
 
 supported by
+
 a.zamanian1991@gmail.com
+
 amin.abedi.1368@gmail.com
