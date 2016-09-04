@@ -2,19 +2,21 @@
     "name": "naiveBayesService"
   , "description": "service post gategories for social app in node.js"
   , "version": "1.0.0"
-  , "author": "amin abedi"
+  , "author": "amin abedi and alireza zamanian"
   , "keywords": [ "naive", "bayes", "categorize", "classify", "classifier" ]
   , "dependencies": {
 	"jayson" : "2.0.2" ,
 	"basic-auth-connect" : "1.0.0" ,
 	"connect" : "3.4.1" ,
-	"body-parser" : "1.15.2" 
+	"body-parser" : "1.15.2",
+	"jsonfile" : "2.3.1",
+	"http-auth" : "2.4.4"
     }
   , "devDependencies": {
       "mocha": ">=0.8.1"
   }
   , "engines": { "node": ">=0.8.0" }
-  , "main": "./lib/naive_bayes"
+  , "main": "./lib/Spamist"
   , "repository": {
         "type": "git"
       , "url": "http://github.com/aminabedi1369/nodeJSpostFiltering.git"

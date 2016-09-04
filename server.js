@@ -1,20 +1,98 @@
+var jsonfile = require('jsonfile')
+var Spamist = require('./lib/Spamist')
+var bayes = require('./lib/bayes')
 var jayson = require('jayson');
-var post;
 var http = require('http');
 var connect = require('connect');
 var jsonParser = require('body-parser').json;
 var app = connect();
 // Authentication module.
 var basicAuth = require('basic-auth-connect');
+var post;
+var learnOnfly;
+var learnOtherCat;
+var tempfilter = bayes()
+var mynet = Spamist()
+var enableloadfromjson= false
+var t = 65.5
+
+
+
+var messages = mynet.readtext('joke')
+
+
+var cleaning_options = {
+"need_histo": true,
+"need_neutral": true,
+"need_length": true,
+"neutral_population_ratio": 0.2,
+"neutral_difference": 0.05
+}
+
+var options = {
+"calc_error": {
+  "do_calc": true,
+  "iteration": 10,
+  "train_ratio": 0.8,
+  "threshold": t
+},
+"cleaning" : {
+  "do_clean": true,
+  "cleaning_options": cleaning_options
+}
+}
+
+var filter = mynet.train(messages,options)
+console.log(mynet)
+
+
+var stateJson = filter.toJson()
+
+// load the spamfilter back from its JSON representation.
+
+		if (enableloadfromjson == true)
+		{
+		var revivedClassifier = bayes.fromJson(stateJson)
+		console.log(revivedClassifier)
+		}
 
 
 
 var server = jayson.server({
   post: function(args, callback) {
-	  post=args[0]
-	  console.log(post)
-	//  console.log(callback.toString())
-	  var result =classifier.categorize(post)
+	//	console.log(post)
+	//  console.log(callback.toString())  
+	
+	post=args[0]
+	learnOnfly = args[2]
+	learnOtherCat = args[3]
+	enableloadfromjson=args[4]
+		
+		
+		
+		if (learnOnfly != null)
+		{
+		///////////////////////learn on the fly
+		var filter = mynet.train(learnOnfly,options)
+		console.log(mynet)
+		}
+		if (learnOtherCat != null)
+		{
+		////////////////////// learn other catagory
+			var messages = mynet.readtext(learnOtherCat)
+			var filter = mynet.train(messages,options)
+			console.log(mynet)
+		} 
+		
+		if (enableloadfromjson == true)
+		{
+		var revivedClassifier = bayes.fromJson(stateJson)
+		console.log(revivedClassifier)
+		}
+		
+		
+	var result = mynet.classify(post,filter,t)	//console.log(result)
+	 // var result =classifier.categorize(post)
     callback(null, result);
   }
 });
@@ -26,92 +104,3 @@ app.use(basicAuth(function(user, pass){
 }))
 app.use(server.middleware());
 app.listen(3000);
-
-
-
-function shuffle(a) {
-    var j, x, i;
-    for (i = a.length; i; i--) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-    }
-    return a
-}
-
-
-var bayes = require('bayes')
-var fs = require('fs');
-var classifier = bayes()
-var lables = []
-
-
-
-var contents = fs.readFileSync('main', 'utf8');
-contents = contents.replace(/#|_|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'');
-contents = contents.replace(/#| a | an | and | or /g,' ');
-contents = contents.toLowerCase()
-var messages = contents.split("\n")
-messages.splice(messages.length - 1)
-
-
-// --- train test ---
-messages = shuffle(messages)
-var trn_number = Math.floor(messages.length * 0.75)
-var tst_number = trn_number + 1
-
-for (m_ind in messages)
-{
-	lable_sms = messages[m_ind].split("\t")
-	if (lable_sms[0] == 'ham')
-	{
-		lables[m_ind] = 'general'
-		messages[m_ind] = messages[m_ind].replace("ham\t","")
-	}
-	else
-	{
-		lables[m_ind] = 'filter'
-		messages[m_ind] = messages[m_ind].replace("spam\t","")
-	}
-}
-
-
-for (var m_ind = 0; m_ind <= trn_number; m_ind ++)
-{
-	classifier.learn(messages[m_ind], lables[m_ind])
-}
-
-// serialize the classifier's state as a JSON string.
-var stateJson = classifier.toJson()
-
-// load the classifier back from its JSON representation.
-var revivedClassifier = bayes.fromJson(stateJson)
-//console.log(revivedClassifier)
-
-
-var error_trn = 0
-for (var m_ind = 0; m_ind <= trn_number; m_ind ++)
-{
-	if (classifier.categorize(messages[m_ind]) !== lables[m_ind])
-	{
-		error_trn ++
-	}
-}
-
-console.log("Train error percentage is: ")
-console.log(100 * error_trn/(trn_number))
-
-
-
-var error_tst = 0
-for (var m_ind = tst_number; m_ind < messages.length; m_ind ++)
-{
-	if (classifier.categorize(messages[m_ind]) !== lables[m_ind])
-	{
-		error_tst ++
-	}
-}
-
-//console.log("Test error percentage is: ")
-//console.log(100 * error_tst/(messages.length-tst_number))

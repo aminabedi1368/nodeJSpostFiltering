@@ -1,0 +1,95 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "bayes",
+        "scope": null,
+        "escapedName": "bayes",
+        "name": "bayes",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\"
+    ]
+  ],
+  "_from": "bayes@latest",
+  "_id": "bayes@0.0.6",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/bayes",
+  "_nodeVersion": "0.12.0",
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/bayes-0.0.6.tgz_1462167302352_0.14940086333081126"
+  },
+  "_npmUser": {
+    "name": "ttezel",
+    "email": "tolgatezel11@gmail.com"
+  },
+  "_npmVersion": "2.5.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "bayes",
+    "scope": null,
+    "escapedName": "bayes",
+    "name": "bayes",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "http://registry.npmjs.org/bayes/-/bayes-0.0.6.tgz",
+  "_shasum": "52022573cce2d638d6d926a71c763091e0b5befe",
+  "_shrinkwrap": null,
+  "_spec": "bayes",
+  "_where": "C:\\",
+  "author": {
+    "name": "Tolga Tezel"
+  },
+  "bugs": {
+    "url": "https://github.com/ttezel/bayes/issues"
+  },
+  "dependencies": {},
+  "description": "Naive Bayes Classifier for node.js",
+  "devDependencies": {
+    "mocha": ">=0.8.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "52022573cce2d638d6d926a71c763091e0b5befe",
+    "tarball": "https://registry.npmjs.org/bayes/-/bayes-0.0.6.tgz"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "gitHead": "1614523e8112662379dbd38489cbd3bdca0db268",
+  "homepage": "https://github.com/ttezel/bayes",
+  "keywords": [
+    "naive",
+    "bayes",
+    "categorize",
+    "classify",
+    "classifier"
+  ],
+  "main": "./lib/naive_bayes",
+  "maintainers": [
+    {
+      "name": "ttezel",
+      "email": "tolgatezel11@gmail.com"
+    }
+  ],
+  "name": "bayes",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ttezel/bayes.git"
+  },
+  "scripts": {
+    "test": "mocha -t 30000 -R spec"
+  },
+  "version": "0.0.6"
+}
