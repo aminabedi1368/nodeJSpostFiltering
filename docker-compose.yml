@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+
+  filtering-web-server:
+    build:
+      context: ./docker
+      dockerfile: Dockerfile_Web-Server
+    image: filtering_web-server
+    ports:
+     - "3000:3000"
+    volumes:
+     - ./app/:/var/www/
+     - ./docker/resource/:/var/www/resource/

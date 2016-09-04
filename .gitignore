@@ -7,7 +7,6 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
-node_modules/
 # Windows Installer files
 *.cab
 *.msi
@@ -45,3 +44,7 @@ node_modules/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+.idea/
+app/node_modules/
+app/data.json

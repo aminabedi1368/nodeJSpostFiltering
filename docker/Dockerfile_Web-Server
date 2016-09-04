@@ -1,0 +1,10 @@
+FROM payam/nodejs
+
+MAINTAINER Payam Naderi <naderi.payam@gmail.com>
+
+
+COPY ["./*.sh", "/docker/"]
+RUN chmod a+x /docker/*.sh
+
+WORKDIR /var/www
+CMD ["/docker/run-override.sh"]
