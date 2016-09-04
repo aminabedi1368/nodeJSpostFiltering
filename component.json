@@ -1,9 +1,9 @@
 {
-    "name": "bayes",
+    "name": "Spamist",
 
-    "main": "lib/naive_bayes.js",
+    "main": "lib/Spamist.js",
 
     "scripts": [
-        "lib/naive_bayes.js"
+        "lib/Spamist.js"
     ]
 }
