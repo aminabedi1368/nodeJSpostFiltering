@@ -37,7 +37,7 @@ var options = {
   "threshold": t
 },
 "cleaning" : {
-  "do_clean": false,
+  "do_clean": true,
   "cleaning_options": cleaning_options
 }
 }
