@@ -37,7 +37,7 @@ var options = {
   "threshold": t
 },
 "cleaning" : {
-  "do_clean": true,
+  "do_clean": false,
   "cleaning_options": cleaning_options
 }
 }
@@ -68,21 +68,21 @@ var server = jayson.server({
 	learnOtherCat = args[3]
 	enableloadfromjson=args[4]
 		
-		
-		
-		if (learnOnfly != null)
-		{
+//		if (learnOnfly != '')
+//		{
 		///////////////////////learn on the fly
-		var filter = mynet.train(learnOnfly,options)
-		console.log(mynet)
-		}
-		if (learnOtherCat != null)
-		{
+//		var filter = mynet.train(learnOnfly,options)
+//		console.log(mynet)
+//		}
+//		if (learnOtherCat != '')
+//		{
 		////////////////////// learn other catagory
-			var messages = mynet.readtext(learnOtherCat)
-			var filter = mynet.train(messages,options)
-			console.log(mynet)
-		} 
+//			var messages = mynet.readtext(learnOtherCat)
+//			var filter = mynet.train(messages,options)
+//			console.log(mynet)
+//		} 
+		
+		
 		
 		if (enableloadfromjson == true)
 		{
