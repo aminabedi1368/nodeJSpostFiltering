@@ -59,7 +59,7 @@ var stateJson = filter.toJson()
 
 
 var server = jayson.server({
-  post: function(args, callback) {
+  categorize: function(args, callback) {
 	//	console.log(post)
 	//  console.log(callback.toString())  
 	
@@ -100,7 +100,7 @@ var server = jayson.server({
 // parse request body before the jayson middleware
 app.use(jsonParser());
 app.use(basicAuth(function(user, pass){
-  return 'payam' == user && 'payam' == pass;
+  return 'anarAppcategory' == user && 'Fu4*;^6{%+CN*G#x' == pass;
 }))
 app.use(server.middleware());
 app.listen(3000);
