@@ -94,13 +94,27 @@ var server = jayson.server({
 	var result = mynet.classify(post,filter,t)	//console.log(result)
 	 // var result =classifier.categorize(post)
     callback(null, result);
-  }
-});
+  },
+
+  
+  ////////////////////////////////////////compare post===========
+	  similarity: function(args, callback) {
+		var oldpost = args[0]
+		console.log(oldpost)
+		
+		var newpost = args[1]
+		console.log(newpost)
+		var textsimilarity = require('./similarity.js')
+		var result =  textsimilarity(oldpost,newpost)
+		console.log(result)
+	  callback(null, result);
+	  }
+  });
 
 // parse request body before the jayson middleware
 app.use(jsonParser());
 app.use(basicAuth(function(user, pass){
-  return 'anarAppcategory' == user && 'Fu4*;^6{%+CN*G#x' == pass;
+    return 'anarAppcategory' == user && 'Fu4*;^6{%+CN*G#x' == pass;
 }))
 app.use(server.middleware());
 app.listen(3000);
