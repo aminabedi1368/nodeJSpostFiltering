@@ -1,7 +1,11 @@
 var math = require('mathjs');
 
 var Prepare = function(text) {
-    return text.replace('.','').toLowerCase();
+	var contents = text
+	contents = contents.replace(/#|_|\ـ|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'')
+	contents = contents.replace(/#| a | an | and | or /g,' ')
+	contents = contents.toLowerCase()
+    return contents;
 };
 
 var TextToVector = function(text, bagofwords) {

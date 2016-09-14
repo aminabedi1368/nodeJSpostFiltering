@@ -100,13 +100,13 @@ var server = jayson.server({
   ////////////////////////////////////////compare post===========
 	  similarity: function(args, callback) {
 		var oldpost = args[0]
-		console.log(oldpost)
+	//	console.log(oldpost)
 		
 		var newpost = args[1]
-		console.log(newpost)
+	//	console.log(newpost)
 		var textsimilarity = require('./similarity.js')
 		var result =  textsimilarity(oldpost,newpost)
-		console.log(result)
+	//	console.log(result)
 	  callback(null, result);
 	  }
   });
