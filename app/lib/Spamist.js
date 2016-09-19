@@ -156,11 +156,16 @@ function text_cleaner(messages,options){
     , neutral_difference = options.neutral_difference
 
   var tempfilter = bayes()
+   console.log("do clean")
+  iiii=0
   for (m_ind in messages)
   {
+	  iiii++
+	  if(iiii%2000 == 0)
+	  console.log(".")
     tempfilter.learn(sms[m_ind],lables[m_ind])
   }
-  
+  console.log("do clean learn finish")
   var uniquewords = Object.keys(tempfilter.vocabulary)
   
   var spamwords = tempfilter.wordFrequencyCount['spam']
@@ -182,10 +187,19 @@ function text_cleaner(messages,options){
     histo[uni_ind] = isSpam + isHam
     spamity[uni_ind] = isSpam / histo[uni_ind]
   }
-  
+  console.log("spamity")
+  //console.log(uniquewords)
   var before = uniquewords.length
   var spam_percentage = tempfilter.docCount.spam / (tempfilter.docCount.spam + tempfilter.docCount.ham)
-  var max = Math.max(...histo)
+  
+
+  
+  
+ // var max = Math.max(...histo)
+  console.log("max start")
+  var max =findMax(histo)
+  console.log(max)
+  console.log("max finish")
   var junk = []
   for (var uni_ind = uniquewords.length,i = 0; uni_ind >= 0; uni_ind--)
   {
@@ -205,11 +219,15 @@ function text_cleaner(messages,options){
   var after = uniquewords.length
 
   xxx = 100*(before-after)/before
-
+console.log("ghable fore akhari")
+shomareforeakhar=0
   for (m_ind in sms)
   {
     for (j in junk)
     {
+		shomareforeakhar++
+		if(shomareforeakhar%30000000==0)
+		console.log("final for in do clean " , (shomareforeakhar*100)/15000000000 , " %")
       sms[m_ind] = sms[m_ind].replace(' '+junk[j]+' ',' ')
       var a = sms[m_ind].length-1-junk[j].length
       var b = sms[m_ind].length
@@ -253,6 +271,7 @@ Spamist.prototype.train = function (messages,options) {
   if (do_clean)
   {
     messages = text_cleaner(messages,options.cleaning.cleaning_options)
+	console.log("do clean finall finish")
   }
 
   if (do_calc)
@@ -280,6 +299,7 @@ Spamist.prototype.train = function (messages,options) {
       // --- learning process ---
       for (var m_ind = 0; m_ind <= trn_number; m_ind ++)
       {
+		//console.log(".")
         classifier.learn(sms[m_ind], lables[m_ind])
       }
 
@@ -319,8 +339,13 @@ Spamist.prototype.train = function (messages,options) {
   var lables = messages_lables[1]
 
   var classifier = bayes()
+  console.log("finall learn")
+  iiiii=0
   for (m_ind in messages)
   {
+	iiiii++
+	if(iiiii%2000 == 0)
+	console.log(".")  
     classifier.learn(sms[m_ind], lables[m_ind])
   }
 
@@ -330,4 +355,16 @@ Spamist.prototype.train = function (messages,options) {
 Spamist.prototype.classify = function (sms,classifier,threshold) {
   var result = classifier.categorize(sms,threshold)
   return result
+}
+
+  function findMax(array){
+  max = 0
+  for(i in array)
+  {
+    if(array[i]>max)
+    {
+      max = array[i]
+    }
+  }
+  return max
 }

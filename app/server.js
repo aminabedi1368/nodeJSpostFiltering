@@ -14,7 +14,7 @@ var learnOtherCat;
 var tempfilter = bayes()
 var mynet = Spamist()
 var enableloadfromjson= false
-var t = 65.5
+var t = 60.5
 
 
 
@@ -60,10 +60,11 @@ var stateJson = filter.toJson()
 
 var server = jayson.server({
   categorize: function(args, callback) {
-	//	console.log(post)
+	
 	//  console.log(callback.toString())  
 	
 	post=args[0]
+	console.log(post)
 	learnOnfly = args[2]
 	learnOtherCat = args[3]
 	enableloadfromjson=args[4]
@@ -91,7 +92,8 @@ var server = jayson.server({
 		}
 		
 		
-	var result = mynet.classify(post,filter,t)	//console.log(result)
+	var result = mynet.classify(post,filter,t)	
+	console.log(result)
 	 // var result =classifier.categorize(post)
     callback(null, result);
   },
