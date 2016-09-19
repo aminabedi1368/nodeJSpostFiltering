@@ -227,7 +227,7 @@ shomareforeakhar=0
     {
 		shomareforeakhar++
 		if(shomareforeakhar%30000000==0)
-		console.log("final for in do clean " , (shomareforeakhar*100)/15000000000 , " %")
+		console.log("final for in do clean " , (shomareforeakhar*100)/21650198508 , " %")
       sms[m_ind] = sms[m_ind].replace(' '+junk[j]+' ',' ')
       var a = sms[m_ind].length-1-junk[j].length
       var b = sms[m_ind].length
