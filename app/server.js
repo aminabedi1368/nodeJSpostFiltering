@@ -14,7 +14,7 @@ var learnOtherCat;
 var tempfilter = bayes()
 var mynet = Spamist()
 var enableloadfromjson= false
-var t = 60.5
+var t = 65.5
 
 
 
