@@ -221,13 +221,16 @@ function text_cleaner(messages,options){
   xxx = 100*(before-after)/before
 console.log("ghable fore akhari")
 shomareforeakhar=0
+console.log(sms.length)
+console.log(junk.length)
+
   for (m_ind in sms)
   {
     for (j in junk)
     {
 		shomareforeakhar++
 		if(shomareforeakhar%30000000==0)
-		console.log("final for in do clean " , (shomareforeakhar*100)/21650198508 , " %")
+		console.log("final for in do clean " , (shomareforeakhar*100)/21650198508, " %")
       sms[m_ind] = sms[m_ind].replace(' '+junk[j]+' ',' ')
       var a = sms[m_ind].length-1-junk[j].length
       var b = sms[m_ind].length
@@ -243,6 +246,7 @@ shomareforeakhar=0
     // --- concatenation ---
     messages[m_ind] = lables[m_ind] + '\t' + sms[m_ind]
   }
+  console.log("shomareforeakhar", shomareforeakhar)
   return messages
 }
 

@@ -16,45 +16,45 @@ var mynet = Spamist()
 var enableloadfromjson= false
 var t = 65.5
 
+var lPhase = false
 
 
-var messages = mynet.readtext('joke')
+if (lPhase)
+{
+	var messages = mynet.readtext('joke')
 
+	var cleaning_options = {
+	"need_histo": true,
+	"need_neutral": true,
+	"need_length": true,
+	"neutral_population_ratio": 0.2,
+	"neutral_difference": 0.05
+	}
 
-var cleaning_options = {
-"need_histo": true,
-"need_neutral": true,
-"need_length": true,
-"neutral_population_ratio": 0.2,
-"neutral_difference": 0.05
+	var options = {
+	"calc_error": {
+	  "do_calc": true,
+	  "iteration": 10,
+	  "train_ratio": 0.8,
+	  "threshold": t
+	},
+	"cleaning" : {
+	  "do_clean": true,
+	  "cleaning_options": cleaning_options
+	}
+	}
+
+	var filter = mynet.train(messages,options)
+	console.log(mynet)
+
+	var stateJson = filter.toJson()
 }
 
-var options = {
-"calc_error": {
-  "do_calc": true,
-  "iteration": 10,
-  "train_ratio": 0.8,
-  "threshold": t
-},
-"cleaning" : {
-  "do_clean": true,
-  "cleaning_options": cleaning_options
-}
-}
-
-var filter = mynet.train(messages,options)
-console.log(mynet)
-
-
-var stateJson = filter.toJson()
-
+var x = require("./data.json")
 // load the spamfilter back from its JSON representation.
+var revivedClassifier = bayes.fromJson(x)
 
-		if (enableloadfromjson == true)
-		{
-		var revivedClassifier = bayes.fromJson(stateJson)
-		console.log(revivedClassifier)
-		}
+
 
 
 
@@ -83,16 +83,9 @@ var server = jayson.server({
 //			console.log(mynet)
 //		} 
 		
-		
-		
-		if (enableloadfromjson == true)
-		{
-		var revivedClassifier = bayes.fromJson(stateJson)
-		console.log(revivedClassifier)
-		}
-		
-		
-	var result = mynet.classify(post,filter,t)	
+	//console.log(post)
+	//console.log(revivedClassifier)
+	var result = mynet.classify(post,revivedClassifier,t)	
 	console.log(result)
 	 // var result =classifier.categorize(post)
     callback(null, result);
