@@ -4,6 +4,7 @@ var bayes = require('./lib/bayes')
 var jayson = require('jayson');
 var http = require('http');
 var connect = require('connect');
+var regexp = require('node-regexp');
 var jsonParser = require('body-parser').json;
 var app = connect();
 // Authentication module.
@@ -60,31 +61,78 @@ var options = {
 console.log("start server")
 var server = jayson.server({
   categorize: function(args, callback) {
-	
+	var result=null
 	 //console.log("start server")  
-	
-	post=args[0]
+	if(args[0]!=null)
+	{
+		domain=null
+		filterlink=null
+		post=args[0]
+		
+		var re = regexp()
+		  .must('http')
+		  .maybe('s')
+		  .must('://')
+		  .maybe('WWW.')
+		  .somethingBut(regexp.space)
+		  .ignoreCase()
+		  .toRegExp()
+		  if(re.test(post))
+			{
+				if (post.indexOf("://") > -1) {
+					domain = post.split('/')[2];
+				}
+				else {
+					domain = post.split('/')[0];
+				}
+
+				//find & remove port number
+				domain = domain.split(':')[0];
+				//console.log("domain",domain)
+				domain = domain.replace(/#|_|\ـ|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'');
+				domain = domain.replace(/#| a | an | and | or /g,' ');
+				domain = domain.toLowerCase()
+				filterlink=mynet.classify(domain,revivedClassifier,t)
+			}
+			//console.log("filterlink",filterlink)
+		if(filterlink=="spam")
+		{
+			result="spam"
+		}
+		else{
+		post = post.replace(/#|_|\ـ|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'');
+		post = post.replace(/#| a | an | and | or /g,' ');
+		post = post.toLowerCase()
+		//console.log(post)
+		result = mynet.classify(post,revivedClassifier,t)
+		}
+		
+	}
 	
 	if(args[1]!=null)
 	{
-		console.log(args[1])
+		//console.log(args[1])
 		learnOnfly=args[1]	
 		learning(learnOnfly)
+		result=result+" learning post save on file "
 	}
 	if(args[2]!=null)
 	{
 		if(typeof args[2]== "number")
 		{
 			t=args[2]
-			
+			result=result+" threashold change with " + t
+			//callback(null, result2);
 		}
 	}
-	//console.log(post)
+	
 	if(args[3]!=null)
 	{
 		if(typeof args[3]== "boolean")
 		{
-			console.log(args[3])
+			result="start new learning"
+			callback(null, result);
+			//console.log(args[3])
 			options.cleaning.do_clean=args[3]
 			console.log(options)
 			var messages = mynet.readtext('joke')
@@ -92,17 +140,13 @@ var server = jayson.server({
 			console.log(mynet)
 			stateJson = filter.toJson()		
 			revivedClassifier = bayes.fromJson(stateJson)
+			
 		}
 	}
-	
-		
-	console.log("t",t)
 	console.log(post)
-	//console.log(revivedClassifier)
-	var result = mynet.classify(post,revivedClassifier,t)	
 	console.log(result)
-	 // var result =classifier.categorize(post)
-    callback(null, result);
+	callback(null, result);
+	
   },
 
   
