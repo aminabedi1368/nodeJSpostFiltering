@@ -15,7 +15,7 @@ var learnOtherCat;
 var tempfilter = bayes()
 var mynet = Spamist()
 var enableloadfromjson= false
-var t = 75
+var t = 65
 var do_clean= false
 var revivedClassifier
 var filter
@@ -62,6 +62,17 @@ console.log("start server")
 var server = jayson.server({
   categorize: function(args, callback) {
 	var result=null
+	if(args[2]!=null)
+	{
+		if(typeof args[2]== "number")
+		{
+			t=args[2]
+			console.log(" threashold change with " , t)
+			
+			//result=result+" threashold change with " + t
+			//callback(null, result2);
+		}
+	}
 	 //console.log("start server")  
 	if(args[0]!=null)
 	{
@@ -92,6 +103,7 @@ var server = jayson.server({
 				domain = domain.replace(/#|_|\ـ|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'');
 				domain = domain.replace(/#| a | an | and | or /g,' ');
 				domain = domain.toLowerCase()
+				t=55
 				filterlink=mynet.classify(domain,revivedClassifier,t)
 			}
 			//console.log("filterlink",filterlink)
@@ -103,7 +115,7 @@ var server = jayson.server({
 		post = post.replace(/#|_|\ـ|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'');
 		post = post.replace(/#| a | an | and | or /g,' ');
 		post = post.toLowerCase()
-		//console.log(post)
+		console.log(post , "threashold: ", t)
 		result = mynet.classify(post,revivedClassifier,t)
 		}
 		
@@ -116,15 +128,7 @@ var server = jayson.server({
 		learning(learnOnfly)
 		result=result+" learning post save on file "
 	}
-	if(args[2]!=null)
-	{
-		if(typeof args[2]== "number")
-		{
-			t=args[2]
-			result=result+" threashold change with " + t
-			//callback(null, result2);
-		}
-	}
+	
 	
 	if(args[3]!=null)
 	{
