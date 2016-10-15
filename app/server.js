@@ -44,7 +44,7 @@ var options = {
 	}
 	if (lPhase)
 	{
-		var messages = mynet.readtext('joke')
+		var messages = mynet.readtext('learn_extra')
 		filter = mynet.train(messages,options)
 		console.log(mynet)
 		stateJson = filter.toJson()
@@ -182,7 +182,7 @@ function learning(learnOnfly)
 	messages = messages.replace(/\n/g, " ");
     messages = messages.toLowerCase()
 	messages = messages+'\n'
-	var file= "./resource/joke"
+	var file= "./resource/learn_extra"
 	fs.appendFile(file,messages, function (err) {
 	});
 }
