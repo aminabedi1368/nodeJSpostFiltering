@@ -12,3 +12,4 @@ services:
     volumes:
      - ./app/:/var/www/
      - ./docker/resource/:/var/www/resource/
+    cpuset: 0-3
