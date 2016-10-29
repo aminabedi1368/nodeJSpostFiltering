@@ -15,7 +15,7 @@ var learnOtherCat;
 var tempfilter = bayes()
 var mynet = Spamist()
 var enableloadfromjson= false
-var t = 65
+var t = 72
 var do_clean= false
 var revivedClassifier
 var filter
@@ -158,9 +158,12 @@ var server = jayson.server({
 	  similarity: function(args, callback) {
 		var oldpost = args[0]
 	//	console.log(oldpost)
-		
+		oldpost = oldpost.replace(/#|_|\ـ|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'');
+		oldpost = oldpost.replace(/\n/g, " ");
 		var newpost = args[1]
 	//	console.log(newpost)
+		newpost = newpost.replace(/#|_|\ـ|-|'|]|\[|\*|\+|\,|\!|\&|\%|\$|\#|\?|\.|\'|\/|\@|\(|\)|\^/g,'');
+		newpost = newpost.replace(/\n/g, " ");
 		var textsimilarity = require('./similarity.js')
 		var result =  textsimilarity(oldpost,newpost)
 	//	console.log(result)
